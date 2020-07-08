@@ -4655,7 +4655,7 @@ GameObject:
   - component: {fileID: 5912562671729614096}
   - component: {fileID: 4103983070088927986}
   - component: {fileID: 572646786}
-  - component: {fileID: 572646787}
+  - component: {fileID: 2668512972838984682}
   m_Layer: 0
   m_Name: UnityChan
   m_TagString: Untagged
@@ -4725,9 +4725,9 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
---- !u!136 &572646787
+--- !u!136 &2668512972838984682
 CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4737,10 +4737,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.24531591
-  m_Height: 1.543242
+  m_Radius: 0.27113605
+  m_Height: 1.5775919
   m_Direction: 1
-  m_Center: {x: 0, y: 0.7841865, z: -0.037661314}
+  m_Center: {x: -0.0050427914, y: 0.7700801, z: 0}
 --- !u!1 &5912562671722229656
 GameObject:
   m_ObjectHideFlags: 0
