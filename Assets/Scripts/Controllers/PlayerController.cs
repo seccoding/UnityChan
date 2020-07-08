@@ -40,7 +40,7 @@ public class PlayerController : MonoBehaviour
                 // dir.normalized : 크기가 1인 방향벡터
                 transform.position += (dir.normalized * moveDistance);
                 // 목적지를 바라본다.
-                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(dir), 20 *ㅇ Time.deltaTime);
+                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(dir), 20 * Time.deltaTime);
             }
         }
     }
