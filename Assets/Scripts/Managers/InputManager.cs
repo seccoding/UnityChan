@@ -2,34 +2,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UIElements;
 
 public class InputManager
 {
-    public Action KeyAction;
-    public Action<Define.MouseEvent> MouseAction;
+    public Action<Vector2> JoystickAction;
 
-    bool _pressed = false;
+    public Joystick _joystick;
 
     public void OnUpdate()
     {
-        // 어떤 키를 눌렀고 키 액션 델리게이트가 있을 때
-        if (Input.anyKey && KeyAction != null)
-            KeyAction.Invoke();
+        // 조이스틱을 움직인 경우
+        if (JoystickAction != null)
+            JoystickAction.Invoke(_joystick.Direction);
 
-        if (MouseAction != null)
-        {
-            if (Input.GetMouseButton((int)MouseButton.RightMouse))
-            {
-                MouseAction.Invoke(Define.MouseEvent.Press);
-                _pressed = true;
-            }
-            else
-            {
-                if (_pressed)
-                    MouseAction.Invoke(Define.MouseEvent.Click);
-                _pressed = false;
-            }
-        }
+        // UI를 클릭한것을 무시한다.
+        //if (EventSystem.current.IsPointerOverGameObject())
+        //    return;
     }
 }

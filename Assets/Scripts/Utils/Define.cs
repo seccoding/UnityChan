@@ -7,12 +7,6 @@ using System.Threading.Tasks;
 
 public class Define
 {
-    public enum MouseEvent 
-    {
-        Press,
-        Click,
-    }
-
     public enum CameraMode
     {
         QuaterView,
@@ -22,13 +16,17 @@ public class Define
     {
         Monster = 8,
         Wall = 9,
+        Ground = 10,
     }
 
-    public enum MouseButton
+    public enum PlayerState
     {
-        Left = 0,
-        Right = 1,
-        Wheel = 2,
+        Idle,
+        Moving,
+        Die,
+        Channeling,
+        Jumping,
+        Falling,
     }
 }
 

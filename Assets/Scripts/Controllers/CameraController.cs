@@ -1,47 +1,40 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Rendering;
+using UnityEngine.EventSystems;
 
-public class CameraController : MonoBehaviour
+public class CameraController : MonoBehaviour, IDragHandler
 {
-    [SerializeField]
-    Define.CameraMode _mode = Define.CameraMode.QuaterView;
-    [SerializeField]
-    Vector3 _delta;
-    [SerializeField]
-    GameObject _player = null;
+    [SerializeField] GameObject _player;
+    [SerializeField] float _rotationSpeed;
 
+    Vector3 delta;
+
+    // Start is called before the first frame update
     void Start()
     {
-        SetQuarterView(Camera.main.transform.position);
+        delta = new Vector3(0, 6, -15);
+        Camera.main.transform.rotation = Quaternion.Euler(15, 0, 0);
     }
 
-    // Update 이후에 실행됨. 모든 처리가 끝난 후 처리해야 할 것들을 정의한다.
-    void LateUpdate()
+    // Update is called once per frame
+    void Update()
     {
-        if (_mode == Define.CameraMode.QuaterView)
-        {
-            int wallMask = (1 << (int)Define.Layer.Wall);
-            RaycastHit hit;
-            if (Physics.Raycast(_player.transform.position, _delta, out hit, _delta.magnitude, wallMask))
-            {
-                float dist = (hit.point - _player.transform.position).magnitude * 0.8f;
-                transform.position = _player.transform.position + _delta.normalized * dist;
-            }
-            else
-            {
-                SetQuarterView(_delta);
-                transform.position = _player.transform.position + _delta;
-                transform.LookAt(_player.transform);
-            }
-            
-        }
+        Camera.main.transform.localPosition = _player.transform.position + delta;
+        Camera.main.transform.LookAt(_player.transform.position + (Vector3.up * 1.5f));
     }
 
-    public void SetQuarterView(Vector3 delta)
+    public void OnDrag(PointerEventData eventData)
     {
-        _mode = Define.CameraMode.QuaterView;
-        _delta = delta;
+        Vector2 touchDirection = eventData.delta;
+
+        Camera.main.transform.RotateAround(_player.transform.position, Vector3.right, touchDirection.y * 0.2f);
+        Camera.main.transform.RotateAround(_player.transform.position, Vector3.up, touchDirection.x * 0.2f);
+
+        Camera.main.transform.eulerAngles = new Vector3(touchDirection.y * 0.3f, 0f, 0f);
+        Camera.main.transform.LookAt(_player.transform.position + (Vector3.up * 1.5f));
+
+        delta = new Vector3(Camera.main.transform.localPosition.x - _player.transform.localPosition.x, Camera.main.transform.localPosition.y - _player.transform.localPosition.y, Camera.main.transform.localPosition.z - _player.transform.localPosition.z);
     }
+
 }
