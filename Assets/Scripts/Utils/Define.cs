@@ -27,6 +27,10 @@ public class Define
         Channeling,
         Jumping,
         Falling,
+        Sturn,
+        Poison,
+        Bleeding,
+        Knockback,
     }
 }
 

@@ -1,13 +1,14 @@
-﻿using System;
+﻿using Cinemachine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : CharacterBase
 {
-    Define.PlayerState _state = Define.PlayerState.Idle;
+    
 
-    Joystick _joystick;
     float _joystickDistance;
     Vector3 _joystickAngle;
 
@@ -15,12 +16,18 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        _joystick = FindObjectOfType<Joystick>();
-        transform.rotation = Camera.main.transform.localRotation;
-        transform.rotation = Quaternion.Euler(0f, Camera.main.transform.localRotation.eulerAngles.y, 0f);
-        // 혹시라도 다른 부분에서 KeyAction에 동일한 이벤트를 넣었을 경우, 두번 실행되는 것을 방지하기 위해서 하나를 끊는다.
+        SetCharacterType(CharacterType.Knight);
+
         Managers.Input.JoystickAction -= OnJoystickMove;
         Managers.Input.JoystickAction += OnJoystickMove;
+        Managers.UI.ChooseTargetAction -= ChooseTarget;
+        Managers.UI.ChooseTargetAction += ChooseTarget;
+
+        Managers.UI.SkillAction -= UseSkill;
+        Managers.UI.SkillAction += UseSkill;
+
+        Managers.UI.CreateEnemiesIcon();
+
     }
 
     void Update()
@@ -53,8 +60,16 @@ public class PlayerController : MonoBehaviour
     {
         if (_state == Define.PlayerState.Moving)
         {
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(_joystickAngle), 0.2f);
-            transform.Translate(Vector3.forward * (_speed * _joystickDistance) * Time.deltaTime);
+            if (_target == null)
+            {
+                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(_joystickAngle), 0.2f);
+                transform.Translate(Vector3.forward * (_speed * _joystickDistance) * Time.deltaTime);
+            }
+            else
+            {
+                LookTarget(_target.transform);
+                transform.Translate(_joystickAngle * (_speed * _joystickDistance) * Time.deltaTime);
+            }
         }
 
         // 애니메이션 처리
@@ -77,11 +92,36 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        _joystickAngle = Camera.main.transform.TransformDirection(new Vector3(direction.x, 0f, direction.y));
+        if (_target == null)
+            _joystickAngle = Managers.Camera.Main.transform.TransformDirection(new Vector3(direction.x, 0f, direction.y));
+        else
+            _joystickAngle = Managers.Camera.FreeLook.transform.TransformDirection(new Vector3(direction.x, 0f, direction.y));
         _joystickAngle.y = 0f;
         _joystickDistance = Mathf.Sqrt(direction.x * direction.x) + Mathf.Sqrt(direction.y * direction.y);
         
         _state = Define.PlayerState.Moving;
+    }
+
+    protected void ChooseTarget(GameObject obj)
+    {
+        DebugManager.Debug($"monster: {obj}");
+
+        if (_target == obj)
+        {
+            Managers.Camera.FreeLook.m_BindingMode = CinemachineTransposer.BindingMode.SimpleFollowWithWorldUp;
+            LookTarget(obj.transform);
+            ReleaseTarget();
+        }
+        else
+        {
+            LookTarget(obj.transform);
+            Managers.Camera.FreeLook.m_BindingMode = CinemachineTransposer.BindingMode.LockToTarget;
+        }
+    }
+
+    void UseSkill(float skillNumber)
+    {
+        Debug.Log($"Use Skill {skillNumber}");
     }
 
 }

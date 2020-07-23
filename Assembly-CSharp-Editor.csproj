@@ -631,6 +631,9 @@
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>C:/Users/mcjan/Desktop/UnityChan/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
+    <Reference Include="Cinemachine">
+      <HintPath>C:/Users/mcjan/Desktop/UnityChan/Library/ScriptAssemblies/Cinemachine.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.VSCode.Editor">
       <HintPath>C:/Users/mcjan/Desktop/UnityChan/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
     </Reference>
@@ -648,6 +651,9 @@
     </Reference>
     <Reference Include="Unity.Rider.Editor">
       <HintPath>C:/Users/mcjan/Desktop/UnityChan/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="com.unity.cinemachine.editor">
+      <HintPath>C:/Users/mcjan/Desktop/UnityChan/Library/ScriptAssemblies/com.unity.cinemachine.editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
       <HintPath>C:/Users/mcjan/Desktop/UnityChan/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
