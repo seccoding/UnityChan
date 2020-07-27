@@ -7,24 +7,18 @@ using UnityEngine.EventSystems;
 
 public class PlayerController : CharacterBase
 {
-    
-
     float _joystickDistance;
     Vector3 _joystickAngle;
 
-    [SerializeField] float _speed = 6f;
-
     void Start()
     {
+        Behavior = new CharaceterMoveAndRotation(this);
         SetCharacterType(CharacterType.Knight);
 
         Managers.Input.JoystickAction -= OnJoystickMove;
         Managers.Input.JoystickAction += OnJoystickMove;
         Managers.UI.ChooseTargetAction -= ChooseTarget;
         Managers.UI.ChooseTargetAction += ChooseTarget;
-
-        Managers.UI.SkillAction -= UseSkill;
-        Managers.UI.SkillAction += UseSkill;
 
         Managers.UI.CreateEnemiesIcon();
 
@@ -60,25 +54,25 @@ public class PlayerController : CharacterBase
     {
         if (_state == Define.PlayerState.Moving)
         {
-            if (_target == null)
-            {
-                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(_joystickAngle), 0.2f);
-                transform.Translate(Vector3.forward * (_speed * _joystickDistance) * Time.deltaTime);
-            }
+            if (_isAttack)
+                Behavior.MoveToTargetAndAttack();
             else
-            {
-                LookTarget(_target.transform);
-                transform.Translate(_joystickAngle * (_speed * _joystickDistance) * Time.deltaTime);
-            }
-        }
+                Behavior.Move(_joystickAngle, _joystickDistance);
 
-        // 애니메이션 처리
-        Animator anim = GetComponent<Animator>();
-        anim.SetFloat("speed", _joystickDistance);
+            // 애니메이션 처리
+            Animator anim = GetComponent<Animator>();
+            anim.SetFloat("speed", _joystickDistance);
+        }
     }
 
     void UpdateIdle()
     {
+        if (_isAttack)
+        {
+            _state = Define.PlayerState.Moving;
+            return;
+        }
+
         // 애니메이션 처리
         Animator anim = GetComponent<Animator>();
         anim.SetFloat("speed", 0);
@@ -88,11 +82,15 @@ public class PlayerController : CharacterBase
     {
         if (direction.x == 0.0f && direction.y == 0.0f)
         {
-            _state = Define.PlayerState.Idle;
+            if (!_isAttack)
+                _state = Define.PlayerState.Idle;
+            else
+                _state = Define.PlayerState.Moving;
+            
             return;
         }
 
-        if (_target == null)
+        if (!Target.HaveTarget())
             _joystickAngle = Managers.Camera.Main.transform.TransformDirection(new Vector3(direction.x, 0f, direction.y));
         else
             _joystickAngle = Managers.Camera.FreeLook.transform.TransformDirection(new Vector3(direction.x, 0f, direction.y));
@@ -100,28 +98,6 @@ public class PlayerController : CharacterBase
         _joystickDistance = Mathf.Sqrt(direction.x * direction.x) + Mathf.Sqrt(direction.y * direction.y);
         
         _state = Define.PlayerState.Moving;
-    }
-
-    protected void ChooseTarget(GameObject obj)
-    {
-        DebugManager.Debug($"monster: {obj}");
-
-        if (_target == obj)
-        {
-            Managers.Camera.FreeLook.m_BindingMode = CinemachineTransposer.BindingMode.SimpleFollowWithWorldUp;
-            LookTarget(obj.transform);
-            ReleaseTarget();
-        }
-        else
-        {
-            LookTarget(obj.transform);
-            Managers.Camera.FreeLook.m_BindingMode = CinemachineTransposer.BindingMode.LockToTarget;
-        }
-    }
-
-    void UseSkill(float skillNumber)
-    {
-        Debug.Log($"Use Skill {skillNumber}");
     }
 
 }

@@ -81,10 +81,7 @@ public class GameMessagePopup : MonoBehaviour
             _textColor.a -= disappearSpeed * Time.deltaTime;
             _textMesh.color = _textColor;
             if (_textColor.a < 0)
-            {
                 Destroy(gameObject);
-            }
         }
-
     }
 }

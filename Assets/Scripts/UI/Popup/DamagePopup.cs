@@ -10,7 +10,7 @@ public class DamagePopup : MonoBehaviour
 
     private TextMeshPro _textMesh;
     private float _disappearTimer;
-    private Color _textColor, _tempTextColor;
+    private Color _textColor;
     private Vector3 _moveVector;
 
     public static DamagePopup Create(Vector3 position, float damageAmount, bool isCriticalHit)
@@ -32,13 +32,9 @@ public class DamagePopup : MonoBehaviour
         return null;
     }
 
-    private void Awake()
-    {
-        _textMesh = transform.GetComponent<TextMeshPro>();
-        _tempTextColor = _textMesh.color;
-    }
     public void Setup(float damageAmount, bool isCriticalHit)
     {
+        _textMesh = transform.GetComponent<TextMeshPro>();
         _textMesh.SetText(damageAmount.ToString());
         if (isCriticalHit)
         {
@@ -48,7 +44,7 @@ public class DamagePopup : MonoBehaviour
         else
         {
             _textMesh.fontSize = 1;
-            _textColor = _tempTextColor;
+            _textColor = Color.yellow;
         }
 
         _textMesh.color = _textColor;
@@ -85,9 +81,7 @@ public class DamagePopup : MonoBehaviour
             _textColor.a -= disappearSpeed * Time.deltaTime;
             _textMesh.color = _textColor;
             if (_textColor.a < 0)
-            {
                 Destroy(gameObject);
-            }
         }
 
     }

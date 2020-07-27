@@ -8,7 +8,6 @@ public class UIManager
 {
 
     public Action<GameObject> ChooseTargetAction;
-    public Action<float> SkillAction;
 
     readonly Dictionary<GameObject, Rect> _eneniesDict = new Dictionary<GameObject, Rect>();
     List<GameObject> _enemies;
@@ -45,12 +44,8 @@ public class UIManager
 
                 Rect rect;
                 if (_eneniesDict.TryGetValue(enemy, out rect))
-                {
                     if (GUI.Button(rect, enemy.name))
-                    {
                         ChooseTargetAction.Invoke(enemy);
-                    }
-                }
             }
         }
     }

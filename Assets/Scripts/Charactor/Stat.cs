@@ -20,6 +20,8 @@ public enum EnemyType
 
 public class Stat : MonoBehaviour
 {
+    [SerializeField] public float _speed = 6f;
+
     public CharacterType _characterType;
     public EnemyType _enemyType;
 

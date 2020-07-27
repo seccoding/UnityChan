@@ -18,6 +18,7 @@ public class ResourceManager
             Debug.Log($"Failed to load image: Art/{path}");
             return null;
         }
+
         return sprite;
     }
 

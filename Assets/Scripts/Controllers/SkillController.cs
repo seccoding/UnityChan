@@ -61,8 +61,6 @@ public class SkillController : MonoBehaviour
      */
     public void InteractionSkill(Skill skill, CharacterBase targetBase)
     {
-        Debug.Log($"{skill.Name} 공격!");
-
         SetCriticalHit(_characterBase._ciritical);
         SetAvoidance(targetBase._avoidance);
 
@@ -79,8 +77,11 @@ public class SkillController : MonoBehaviour
         if (!_isAvoidance && attackDamage > 0)
             DamagePopup.Create(targetBase.transform.position + Vector3.up * (targetBase.GetComponent<Collider>().bounds.size.y), attackDamage, _isCritical);
 
-        if (targetBase._target == null)
-            targetBase._target = _characterBase.gameObject;
+        if (!targetBase.Target.HaveTarget())
+            targetBase.Target.Target = _characterBase.gameObject;
+
+        if (targetBase.Target.HaveTarget())
+            targetBase.Behavior.LookTarget(_player.transform);
 
         targetBase._hp -= attackDamage;
     }
@@ -150,106 +151,15 @@ public class SkillController : MonoBehaviour
         return defence;
     }
 
-    /*
-     * 적에게 지속효과 케이스별로 적용
-     */
-    public void ContinuosDamage(Skill skill, CharacterBase targetBase)
-    {
-        ContinuosDamage continuosDamage = skill.ContinuosDamage;
-
-        switch (continuosDamage.Type)
-        {
-            case ContinuosDamageType.Sturn:
-                targetBase._state = Define.PlayerState.Sturn;
-                StartCoroutine(ContinuosDamageCoroutine(continuosDamage, targetBase));
-                break;
-            case ContinuosDamageType.Poison:
-                targetBase._state = Define.PlayerState.Poison;
-                StartCoroutine(ContinuosDamageCoroutine(continuosDamage, targetBase));
-                break;
-            case ContinuosDamageType.Knockback:
-                targetBase._state = Define.PlayerState.Knockback;
-                StartCoroutine(ContinuosDamageKnockbackCoroutine(continuosDamage, targetBase));
-                break;
-            case ContinuosDamageType.Bleeding:
-                targetBase._state = Define.PlayerState.Bleeding;
-                StartCoroutine(ContinuosDamageCoroutine(continuosDamage, targetBase));
-                break;
-        }
-    }
-
-    /*
-     * 적에게 넉백효과 주기
-     */
-    IEnumerator ContinuosDamageKnockbackCoroutine(ContinuosDamage continuosDamage, CharacterBase targetBase)
-    {
-        float timer = 0;
-        while (true)
-        {
-            if (targetBase == null || targetBase.transform == null)
-                break;
-
-            if (targetBase._state == Define.PlayerState.Knockback)
-            {
-                targetBase.transform.Translate(transform.forward * Time.deltaTime * 8f);
-                yield return new WaitForSeconds(Time.deltaTime);
-            }
-            else
-                break;
-
-            timer += 0.1f;
-            if (timer >= continuosDamage.Duration)
-                break;
-        }
-    }
-
-    /*
-     * 적에게 지속효과 주기
-     */
-    IEnumerator ContinuosDamageCoroutine(ContinuosDamage continuosDamage, CharacterBase targetBase)
-    {
-        float timer = 0;
-        while (true)
-        {
-            if (targetBase == null || targetBase.transform == null)
-                break;
-
-            switch (targetBase._state)
-            {
-                case Define.PlayerState.Sturn:
-                    break;
-                case Define.PlayerState.Knockback:
-                    Debug.Log("넉백");
-                    targetBase.transform.Translate(transform.forward * Time.deltaTime * 8f);
-                    yield return new WaitForSeconds(Time.deltaTime);
-                    break;
-                case Define.PlayerState.Poison:
-                case Define.PlayerState.Bleeding:
-                    targetBase._hp -= continuosDamage.DamagePerSecond;
-                    DamagePopup.Create(targetBase.transform.position + Vector3.up * (targetBase.GetComponent<Collider>().bounds.size.y), continuosDamage.DamagePerSecond, false);
-                    break;
-            }
-
-            timer += 1;
-            if (timer >= continuosDamage.Duration)
-                break;
-
-            yield return new WaitForSeconds(1f);
-        }
-    }
-
     public bool ReadySkill(Image skillImage)
     {
-        Debug.Log(skillImage.fillAmount >= 1.0f);
         return skillImage.fillAmount >= 1.0f;
     }
 
     public void StartCoolTime(Image skillImage, float cooltime)
     {
         if (cooltime == 0f) return;
-
         skillImage.fillAmount = 0.0f;
-
         StartCoroutine(CooltimeCoroutine(skillImage, cooltime));
     }
 
@@ -264,6 +174,6 @@ public class SkillController : MonoBehaviour
                 break;
             yield return new WaitForSeconds(0.01f);
         }
-
     }
+
 }

@@ -10,13 +10,8 @@ public class EnemyManager
 
         GameObject[] objects = UnityEngine.SceneManagement.SceneManager.GetActiveScene().GetRootGameObjects();
         foreach (GameObject obj in objects)
-        {
             if (obj.layer == 8)
-            {
                 enemies.Add(obj);
-                Debug.Log(obj.name);
-            }
-        }
 
         return enemies;
     }
