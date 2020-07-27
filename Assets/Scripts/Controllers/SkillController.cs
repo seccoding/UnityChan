@@ -84,6 +84,19 @@ public class SkillController : MonoBehaviour
             targetBase.Behavior.LookTarget(_player.transform);
 
         targetBase._hp -= attackDamage;
+
+        if (skill.GetContinuosDamage() != null)
+        {
+            skill.CreatePrefab();
+            skill.Prefab.GetComponent<Collider>().isTrigger = skill.IsPenetrating;
+
+            ThrowSkill throwSkill = skill.Prefab.AddComponent<ThrowSkill>();
+            throwSkill._player = _player.transform;
+            throwSkill._skill = skill;
+            throwSkill._skillController = this;
+            throwSkill._target = _characterBase.Target.Target;
+            throwSkill.Fire();
+        }
     }
 
     /*
@@ -156,24 +169,6 @@ public class SkillController : MonoBehaviour
         return skillImage.fillAmount >= 1.0f;
     }
 
-    public void StartCoolTime(Image skillImage, float cooltime)
-    {
-        if (cooltime == 0f) return;
-        skillImage.fillAmount = 0.0f;
-        StartCoroutine(CooltimeCoroutine(skillImage, cooltime));
-    }
-
-    private IEnumerator CooltimeCoroutine(Image skillImage, float cooltime)
-    {
-        float time = 0;
-        while (true)
-        {
-            time += 0.02f;
-            skillImage.fillAmount = time / cooltime;
-            if (time >= cooltime)
-                break;
-            yield return new WaitForSeconds(0.01f);
-        }
-    }
+    
 
 }

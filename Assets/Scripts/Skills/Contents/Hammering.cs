@@ -11,6 +11,8 @@ public class Hammering : Skill
 
     public override IEnumerator Effect(Transform player, CharacterBase target, Define.PlayerState tempState)
     {
+        target._state = Define.PlayerState.Knockback;
+
         float timer = 0;
         while (true)
         {

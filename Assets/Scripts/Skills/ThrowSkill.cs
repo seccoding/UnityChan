@@ -16,7 +16,6 @@ public class ThrowSkill : MonoBehaviour
 
     private bool _isFire;
 
-
     private void OnTriggerStay(Collider other)
     {
         if (_skill.IsTracking)
@@ -45,20 +44,28 @@ public class ThrowSkill : MonoBehaviour
         if (hitObject.name == "Plane") return;
 
         _hitCount++;
-        StartEffect();
+        CharacterBase target = hitObject.GetComponent<CharacterBase>();
+        StartEffect(target);
 
-        Debug.Log($"{type} {hitObject.name}");
+
+        if (!target.Target.HaveTarget())
+            target.Target.Target = _player.gameObject;
+
+        if (target.Target.HaveTarget())
+            target.Behavior.LookTarget(_player);
+
+        if (hitObject.GetComponent<CharacterBase>().Target.HaveTarget())
+            hitObject.GetComponent<CharacterBase>().Behavior.LookTarget(_player);
 
         if (_skill.IsMultipleTarget && _hitCount >= _skill.MaxTargetCount)
-            Destroy(gameObject);
+            Destroy(_skill.Prefab);
         else if (!_skill.IsMultipleTarget)
-            Destroy(gameObject);
+            Destroy(_skill.Prefab);
     }
 
-    private void StartEffect()
+    private void StartEffect(CharacterBase target)
     {
-        CharacterBase target = _target.GetComponent<CharacterBase>();
-        StartCoroutine(_skill.Effect(_player, target, target._state));
+        Managers.Skill.Push(_skill.Effect(_player, target, target._state));
     }
 
     public void Fire()
@@ -93,7 +100,7 @@ public class ThrowSkill : MonoBehaviour
                 skillDistance.y = 0;
 
                 if (skillDistance.magnitude > _skill.MinDistance )
-                    Destroy(gameObject);
+                    Destroy(_skill.Prefab);
             }
         }
     }

@@ -51,7 +51,14 @@ public abstract class Skill
 
     public GameObject Prefab;
 
-    public abstract void CreatePrefab();
+    public ContinuosDamage GetContinuosDamage()
+    {
+        if (this.ContinuosDamage.Type == ContinuosDamageType.None)
+            return null;
 
+        return this.ContinuosDamage;
+    }
+
+    public abstract void CreatePrefab();
     public abstract IEnumerator Effect(Transform player, CharacterBase target, Define.PlayerState tempState);
 }

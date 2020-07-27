@@ -21,7 +21,6 @@ public class CharaceterMoveAndRotation
         {
             CharacterBase targetBase = _characterBase.Target.Target.GetComponent<CharacterBase>();
             _characterBase._skillController.InteractionSkill(_characterBase._skill, targetBase);
-            //_characterBase._skillController.ContinuosDamage(_characterBase._skill, targetBase);
             _characterBase.DieProcess();
 
             _characterBase._isAttack = false;
@@ -45,13 +44,15 @@ public class CharaceterMoveAndRotation
         if (coroutine != null)
             _characterBase.StopCoroutine(coroutine);
 
-        Debug.Log(_characterBase._state);
-
         if (_characterBase._state == Define.PlayerState.Sturn
             || _characterBase._state == Define.PlayerState.Knockback)
             return;
 
         Transform player = _characterBase.gameObject.transform;
+
+        if (Physics.Raycast(player.position + Vector3.up, angle, 0.5f, 1 << 9))
+            return;
+
         if (!_characterBase.Target.HaveTarget())
         {
             player.rotation = Quaternion.Slerp(player.rotation, Quaternion.LookRotation(angle), 0.2f);

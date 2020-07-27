@@ -63,6 +63,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\BrokenVector\UltimateDungeonPack\Scenes\Demo\FPControls\Scripts\CharacterController.cs" />
+    <Compile Include="Assets\BrokenVector\UltimateDungeonPack\Scenes\Demo\FPControls\Scripts\MouseCamLook.cs" />
+    <Compile Include="Assets\BrokenVector\UltimateDungeonPack\Scripts\LightImprove.cs" />
     <Compile Include="Assets\Resources\Joystick Pack\Scripts\Base\Joystick.cs" />
     <Compile Include="Assets\Resources\Joystick Pack\Scripts\Joysticks\DynamicJoystick.cs" />
     <Compile Include="Assets\Resources\Joystick Pack\Scripts\Joysticks\FixedJoystick.cs" />
@@ -81,13 +84,14 @@
     <Compile Include="Assets\Scripts\Managers\Contents\InputManager.cs" />
     <Compile Include="Assets\Scripts\Managers\Contents\ResourceManager.cs" />
     <Compile Include="Assets\Scripts\Managers\Contents\SceneManager.cs" />
+    <Compile Include="Assets\Scripts\Managers\Contents\SkillContinousManager.cs" />
     <Compile Include="Assets\Scripts\Managers\Contents\UIManager.cs" />
     <Compile Include="Assets\Scripts\Managers\Managers.cs" />
     <Compile Include="Assets\Scripts\Skills\Contents\Default.cs" />
     <Compile Include="Assets\Scripts\Skills\Contents\Hammering.cs" />
     <Compile Include="Assets\Scripts\Skills\Contents\PoisonArrow.cs" />
     <Compile Include="Assets\Scripts\Skills\Contents\Skill.cs" />
-    <Compile Include="Assets\Scripts\Skills\Effects\Effects.cs" />
+    <Compile Include="Assets\Scripts\Skills\Cooltime.cs" />
     <Compile Include="Assets\Scripts\Skills\Skills.cs" />
     <Compile Include="Assets\Scripts\Skills\ThrowSkill.cs" />
     <Compile Include="Assets\Scripts\UI\Popup\DamagePopup.cs" />

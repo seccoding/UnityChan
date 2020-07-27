@@ -12,6 +12,8 @@ public class PoisonArrow : Skill
 
     public override IEnumerator Effect(Transform player, CharacterBase target, Define.PlayerState tempState)
     {
+        target._state = Define.PlayerState.Poison;
+
         float timer = 0;
         while (true)
         {

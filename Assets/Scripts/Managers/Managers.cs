@@ -13,6 +13,7 @@ public class Managers : MonoBehaviour
     readonly ResourceManager _resource = new ResourceManager();
     readonly SceneManager _scene = new SceneManager();
     readonly UIManager _ui = new UIManager();
+    readonly SkillContinousManager _skill = new SkillContinousManager();
 
     public static Managers Instance { get { Init(); return _instance; } }
     public static CameraManager Camera { get { return Instance._camera; } }
@@ -21,6 +22,7 @@ public class Managers : MonoBehaviour
     public static SceneManager Scene { get { return Instance._scene; } }
     public static EnemyManager Enemy { get { return Instance._enemy; } }
     public static UIManager UI { get { return Instance._ui; } }
+    public static SkillContinousManager Skill { get { return Instance._skill; } }
 
 
     void Start()
@@ -32,6 +34,9 @@ public class Managers : MonoBehaviour
     void Update()
     {
         _input.OnUpdate();
+        IEnumerator skillRoutine = _skill.GetEnumerator();
+        if (skillRoutine != null)
+            StartCoroutine(skillRoutine);
     }
 
     private void OnGUI()

@@ -70,7 +70,7 @@ public class CharacterBase : Stat
             return;
         }
         else
-            _skillController.StartCoolTime(skillImage, skill.Cooltime);
+            StartCoroutine(Cooltime.CooltimeCoroutine(skillImage, skill.Cooltime));
 
         if (!Target.HaveTarget())
             SetClosedTarget(skill.MinDistance);
@@ -88,21 +88,10 @@ public class CharacterBase : Stat
             switch(skill.Type)
             {
                 case SkillType.Short:
-                    _skillController.InteractionSkill(skill, targetBase);
-                    //_skillController.ContinuosDamage(skill, targetBase);
-                    DieProcess();
-                    break;
                 case SkillType.Magic:
                 case SkillType.Long:
-                    skill.CreatePrefab();
-                    skill.Prefab.GetComponent<Collider>().isTrigger = skill.IsPenetrating;
-
-                    ThrowSkill throwSkill = skill.Prefab.AddComponent<ThrowSkill>();
-                    throwSkill._player = transform;
-                    throwSkill._skill = skill;
-                    throwSkill._skillController = _skillController;
-                    throwSkill._target = Target.Target;
-                    throwSkill.Fire();
+                    _skillController.InteractionSkill(skill, targetBase);
+                    DieProcess();
                     break;
             }
         }
