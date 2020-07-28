@@ -5,13 +5,15 @@ using UnityEngine;
 
 public class ThrowSkill : MonoBehaviour
 {
+
     private float _hitCount;
 
-    public Transform _player;
+    public Define.SkillCaster _caster;
     public Vector3 _startPos;
 
-    public SkillController _skillController;
     public Skill _skill;
+
+    public Transform _player;
     public GameObject _target;
 
     private bool _isFire;
@@ -44,18 +46,13 @@ public class ThrowSkill : MonoBehaviour
         if (hitObject.name == "Plane") return;
 
         _hitCount++;
-        CharacterBase target = hitObject.GetComponent<CharacterBase>();
-        StartEffect(target);
 
-
-        if (!target.Target.HaveTarget())
-            target.Target.Target = _player.gameObject;
-
-        if (target.Target.HaveTarget())
-            target.Behavior.LookTarget(_player);
-
-        if (hitObject.GetComponent<CharacterBase>().Target.HaveTarget())
-            hitObject.GetComponent<CharacterBase>().Behavior.LookTarget(_player);
+        if (_caster == Define.SkillCaster.Player)
+        {
+            EnemyController targetController = hitObject.GetComponent<EnemyController>();
+            targetController.SetAndLookTarget(_player.gameObject);
+            StartEffect(hitObject);
+        }
 
         if (_skill.IsMultipleTarget && _hitCount >= _skill.MaxTargetCount)
             Destroy(_skill.Prefab);
@@ -63,9 +60,9 @@ public class ThrowSkill : MonoBehaviour
             Destroy(_skill.Prefab);
     }
 
-    private void StartEffect(CharacterBase target)
+    private void StartEffect(GameObject target)
     {
-        Managers.Skill.Push(_skill.Effect(_player, target, target._state));
+        Managers.Skill.Push(_skill.Effect(_player, target, _caster));
     }
 
     public void Fire()
@@ -80,7 +77,7 @@ public class ThrowSkill : MonoBehaviour
             transform.GetComponent<Collider>().isTrigger = _skill.IsPenetrating;
         }
 
-        _isFire = _player != null && _skill != null && _target != null && _skillController != null;
+        _isFire = _player != null && _skill != null && _target != null;
     }
 
     // Update is called once per frame

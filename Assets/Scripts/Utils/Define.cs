@@ -12,6 +12,12 @@ public class Define
         QuaterView,
     }
 
+    public enum SkillCaster
+    {
+        Player,
+        Enemy,
+    }
+
     public enum Layer
     {
         Monster = 8,
@@ -19,7 +25,15 @@ public class Define
         Ground = 10,
     }
 
-    public enum PlayerState
+    public enum ActionState
+    {
+        None,
+        Targeting,
+        Attack,
+        Defence,
+    }
+
+    public enum State
     {
         Idle,
         Moving,
@@ -27,10 +41,22 @@ public class Define
         Channeling,
         Jumping,
         Falling,
+    }
+
+    public enum ContinuosDamageType
+    {
+        None,
         Sturn,
         Poison,
-        Bleeding,
         Knockback,
+        Bleeding,
+    }
+
+    public enum SkillType
+    {
+        Short,
+        Long,
+        Magic,
     }
 }
 

@@ -3,32 +3,18 @@ using System.Collections.Generic;
 using System.Diagnostics.Eventing.Reader;
 using UnityEngine;
 
-public enum ContinuosDamageType
-{
-    None,
-    Sturn,
-    Poison,
-    Knockback,
-    Bleeding,
-}
 
-public enum SkillType
-{
-    Short,
-    Long,
-    Magic,
-}
 
 public class ContinuosDamage
 {
-    public ContinuosDamageType Type;
+    public Define.ContinuosDamageType Type;
     public float DamagePerSecond;
     public float Duration;
 }
 
 public abstract class Skill
 {
-    public SkillType Type;
+    public Define.SkillType Type;
     public byte RequireLevel;
     public string Name;
     public float Cooltime;
@@ -53,12 +39,12 @@ public abstract class Skill
 
     public ContinuosDamage GetContinuosDamage()
     {
-        if (this.ContinuosDamage.Type == ContinuosDamageType.None)
+        if (this.ContinuosDamage.Type == Define.ContinuosDamageType.None)
             return null;
 
         return this.ContinuosDamage;
     }
 
     public abstract void CreatePrefab();
-    public abstract IEnumerator Effect(Transform player, CharacterBase target, Define.PlayerState tempState);
+    public abstract IEnumerator Effect(Transform player, GameObject target, Define.SkillCaster caster);
 }

@@ -63,22 +63,22 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\BrokenVector\UltimateDungeonPack\Scenes\Demo\FPControls\Scripts\CharacterController.cs" />
-    <Compile Include="Assets\BrokenVector\UltimateDungeonPack\Scenes\Demo\FPControls\Scripts\MouseCamLook.cs" />
     <Compile Include="Assets\BrokenVector\UltimateDungeonPack\Scripts\LightImprove.cs" />
     <Compile Include="Assets\Resources\Joystick Pack\Scripts\Base\Joystick.cs" />
     <Compile Include="Assets\Resources\Joystick Pack\Scripts\Joysticks\DynamicJoystick.cs" />
     <Compile Include="Assets\Resources\Joystick Pack\Scripts\Joysticks\FixedJoystick.cs" />
     <Compile Include="Assets\Resources\Joystick Pack\Scripts\Joysticks\FloatingJoystick.cs" />
     <Compile Include="Assets\Resources\Joystick Pack\Scripts\Joysticks\VariableJoystick.cs" />
-    <Compile Include="Assets\Scripts\Charactor\CharaceterMoveAndRotation.cs" />
-    <Compile Include="Assets\Scripts\Charactor\CharacterBase.cs" />
-    <Compile Include="Assets\Scripts\Charactor\CharacterSetTarget.cs" />
-    <Compile Include="Assets\Scripts\Charactor\Stat.cs" />
     <Compile Include="Assets\Scripts\Controllers\CameraController.cs" />
-    <Compile Include="Assets\Scripts\Controllers\MonsterController.cs" />
-    <Compile Include="Assets\Scripts\Controllers\PlayerController.cs" />
-    <Compile Include="Assets\Scripts\Controllers\SkillController.cs" />
+    <Compile Include="Assets\Scripts\Controllers\Enemies\EnemyController.cs" />
+    <Compile Include="Assets\Scripts\Controllers\Enemies\EnemyStatController.cs" />
+    <Compile Include="Assets\Scripts\Controllers\Enemies\EnemyStatusController.cs" />
+    <Compile Include="Assets\Scripts\Controllers\Player\PlayerInputController.cs" />
+    <Compile Include="Assets\Scripts\Controllers\Player\PlayerMovementController.cs" />
+    <Compile Include="Assets\Scripts\Controllers\Player\PlayerSkillController.cs" />
+    <Compile Include="Assets\Scripts\Controllers\Player\PlayerStatController.cs" />
+    <Compile Include="Assets\Scripts\Controllers\Player\PlayerStatusController.cs" />
+    <Compile Include="Assets\Scripts\Controllers\Player\PlayerTargetingController.cs" />
     <Compile Include="Assets\Scripts\Managers\Contents\CameraManager.cs" />
     <Compile Include="Assets\Scripts\Managers\Contents\EnemyManager.cs" />
     <Compile Include="Assets\Scripts\Managers\Contents\InputManager.cs" />

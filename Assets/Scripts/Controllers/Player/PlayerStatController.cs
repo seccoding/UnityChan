@@ -2,28 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum CharacterType
+public class PlayerStatController : MonoBehaviour
 {
-    None,
-    Knight,
-    Mage,
-    Archor,
-}
+    public enum CharacterType
+    {
+        None,
+        Knight,
+        Mage,
+        Archor,
+    }
 
-public enum EnemyType
-{
-    None,
-    Slime,
-    Orc,
-    Skeleton,
-}
-
-public class Stat : MonoBehaviour
-{
-    [SerializeField] public float _speed = 6f;
-
+    public float _speed = 0.02f;
     public CharacterType _characterType;
-    public EnemyType _enemyType;
 
     public byte _level;
 
@@ -42,53 +32,14 @@ public class Stat : MonoBehaviour
     public float _ciritical; // 치명타율
     public float _avoidance; // 회피율
 
-    public void SetEnemyType(EnemyType enemyType)
+    private void Start()
     {
-        _enemyType = enemyType;
-        _characterType = CharacterType.None;
-
-        if (_enemyType == EnemyType.Slime)
-        {
-            _level = 1;
-            _con = 2f;
-            _strength = 2f;
-            _dex = 1f;
-            _wis = 1f;
-            _know = 1f;
-            _ciritical = 10f;
-            _avoidance = 5f;
-        }
-        else if (_enemyType == EnemyType.Orc)
-        {
-            _level = 3;
-            _con = 5f;
-            _strength = 3f;
-            _dex = 2f;
-            _wis = 1f;
-            _know = 2f;
-            _ciritical = 10f;
-            _avoidance = 5f;
-        }
-        else if (_enemyType == EnemyType.Skeleton)
-        {
-            _level = 5;
-            _con = 10f;
-            _strength = 3f;
-            _dex = 3f;
-            _wis = 1f;
-            _know = 3f;
-            _ciritical = 10f;
-            _avoidance = 5f;
-        }
-
-        _maxHp = _hp = _con * 10f;
-        _maxMana = _mana = _wis * 5f;
+        SetCharacterType(CharacterType.Knight);
     }
 
     public void SetCharacterType(CharacterType characterType)
     {
         _characterType = characterType;
-        _enemyType = EnemyType.None;
         _level = 1;
 
         if (_characterType == CharacterType.Knight)
@@ -123,7 +74,7 @@ public class Stat : MonoBehaviour
         }
 
         _maxHp = _hp = _con * 10f;
-        _maxMana = _mana =  _wis * 5f;
+        _maxMana = _mana = _wis * 5f;
     }
 
     public void LevelUp()
@@ -158,6 +109,5 @@ public class Stat : MonoBehaviour
         _maxHp = _hp += (_con * 10f);
         _maxMana = _mana += (_wis * 5f);
     }
+    
 }
-
-

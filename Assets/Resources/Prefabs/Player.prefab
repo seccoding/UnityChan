@@ -426,9 +426,14 @@ GameObject:
   m_Component:
   - component: {fileID: 7524604114329569318}
   - component: {fileID: 7524604114338604672}
-  - component: {fileID: 7524604114329179111}
+  - component: {fileID: 5474834369676444238}
+  - component: {fileID: 8818885433305663685}
+  - component: {fileID: 1846358092846626770}
+  - component: {fileID: 13072517}
+  - component: {fileID: 6779567810398284223}
+  - component: {fileID: 4040130526042162692}
   m_Layer: 11
-  m_Name: unitychan
+  m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -469,7 +474,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &7524604114329179111
+--- !u!114 &5474834369676444238
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -478,12 +483,70 @@ MonoBehaviour:
   m_GameObject: {fileID: 7524604114329211910}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e2afaec93a37f2e4a82e14a059b0a8fe, type: 3}
+  m_Script: {fileID: 11500000, guid: 9fe91b546c4b91c4592f5d054f3fad25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _joystickDistance: 0
+  _joystickAngle: {x: 0, y: 0, z: 0}
+--- !u!114 &8818885433305663685
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7524604114329211910}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b325825a06d2a748bd33c8d53ad2caa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1846358092846626770
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7524604114329211910}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ed4f8d100c9b1b4e804dfda79476a24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _action: 0
+  _state: 0
+  _effect: 
+--- !u!143 &13072517
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7524604114329211910}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Height: 1.5
+  m_Radius: 0.3
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0.75, z: 0}
+--- !u!114 &6779567810398284223
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7524604114329211910}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f98c494c4238bab4388ecb71063d7d48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 6
   _characterType: 0
-  _enemyType: 0
   _level: 0
   _maxHp: 0
   _maxMana: 0
@@ -496,8 +559,18 @@ MonoBehaviour:
   _know: 0
   _ciritical: 0
   _avoidance: 0
-  _skillController: {fileID: 0}
-  _state: 0
+--- !u!114 &4040130526042162692
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7524604114329211910}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa56edbfbbad67a4a90d7e52440baec1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7524604114329211912
 GameObject:
   m_ObjectHideFlags: 0

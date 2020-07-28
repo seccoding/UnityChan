@@ -10,14 +10,14 @@ public class Default : Skill
         Prefab = Managers.Resource.Instantiate("Skill/Default");
     }
 
-    public override IEnumerator Effect(Transform player, CharacterBase target, Define.PlayerState tempState)
+    public override IEnumerator Effect(Transform player, GameObject target, Define.SkillCaster caster)
     {
-        throw new System.NotImplementedException();
+        return default;
     }
 
     public Default()
     {
-        Type = SkillType.Short;
+        Type = Define.SkillType.Short;
         RequireLevel = 1;
         Name = "맨손공격";
         Speed = 100f;
@@ -29,7 +29,7 @@ public class Default : Skill
         UseHP = 0f;
         Damage = 5f;
         MinDistance = 2f;
-        ContinuosDamage = new ContinuosDamage() { Type = ContinuosDamageType.None };
+        ContinuosDamage = new ContinuosDamage() { Type = Define.ContinuosDamageType.None };
         Icon = Managers.Resource.LoadSprite("Icon/Skills/Hand");
     }
 
