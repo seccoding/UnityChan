@@ -24,6 +24,19 @@ public class PlayerTargetingController : MonoBehaviour
         
     }
 
+    public void DieTarget()
+    {
+        if (_targetPopup != null)
+        {
+            TargetPointerPopup.Destroy(_targetPopup);
+            _targetPopup = null;
+        }
+
+        DestroyImmediate(Target);
+        Target = null;
+        Managers.UI.CreateEnemiesIcon();
+    }
+
     public bool HaveTarget()
     {
         return Target != null;

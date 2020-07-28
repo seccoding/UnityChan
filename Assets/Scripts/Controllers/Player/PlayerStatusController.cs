@@ -14,7 +14,6 @@ public class PlayerStatusController : MonoBehaviour
     }
 
     public List<SkillEffectDuration> _effect = new List<SkillEffectDuration>();
-     
 
     public bool IsActionStatus(Define.ActionState action)
     {
@@ -50,6 +49,9 @@ public class PlayerStatusController : MonoBehaviour
 
     void Update()
     {
-
+        for (int i = 0; i < _effect.Count; i++)
+        {
+            Debug.Log(_effect[i].effect + " / " + _effect[i].duration);
+        }
     }
 }

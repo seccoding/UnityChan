@@ -37,6 +37,16 @@ public class EnemyStatController : MonoBehaviour
         SetEnemyType(EnemyType.Slime);
     }
 
+    private void Update()
+    {
+        
+    }
+
+    public bool IsDie()
+    {
+        return _hp <= 0;
+    }
+
     public void SetEnemyType(EnemyType characterType)
     {
         _enemyType = characterType;

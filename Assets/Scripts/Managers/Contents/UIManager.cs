@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public class UIManager
 {
-
     public Action<GameObject> ChooseTargetAction;
 
     readonly Dictionary<GameObject, Rect> _eneniesDict = new Dictionary<GameObject, Rect>();

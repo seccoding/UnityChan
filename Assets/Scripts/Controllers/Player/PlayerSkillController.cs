@@ -130,8 +130,14 @@ public class PlayerSkillController : MonoBehaviour
 
         EnemyController enemyController = _target.Target.GetComponent<EnemyController>();
         enemyController.SetAndLookTarget(gameObject);
-       
-        _target.Target.GetComponent<EnemyStatController>()._hp -= attackDamage;
+
+        EnemyStatController enemyStat = _target.Target.GetComponent<EnemyStatController>();
+        enemyStat._hp -= attackDamage;
+        if (enemyStat.IsDie())
+        {
+            _target.DieTarget();
+            return;
+        }
 
         if (skill.GetContinuosDamage() != null)
         {

@@ -19,7 +19,10 @@ public class EnemyStatusController : MonoBehaviour
 
     void Update()
     {
-        
+        for (int i = 0; i < _effect.Count; i++)
+        {
+            Debug.Log(transform.name + " = " + _effect[i].effect + " / " + _effect[i].duration);
+        }
     }
 
     public SkillEffectDuration GetEffect(Define.ContinuosDamageType effect)

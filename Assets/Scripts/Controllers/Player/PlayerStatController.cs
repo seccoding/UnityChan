@@ -37,6 +37,16 @@ public class PlayerStatController : MonoBehaviour
         SetCharacterType(CharacterType.Knight);
     }
 
+    private void Update()
+    {
+        
+    }
+
+    public bool IsDie()
+    {
+        return _hp <= 0;
+    }
+
     public void SetCharacterType(CharacterType characterType)
     {
         _characterType = characterType;

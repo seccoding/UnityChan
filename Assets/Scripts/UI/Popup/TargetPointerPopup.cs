@@ -12,6 +12,10 @@ public class TargetPointerPopup : MonoBehaviour
 
     public static TargetPointerPopup Create(Transform targetTransform)
     {
+
+        if (targetTransform == null)
+            return null;
+
         Transform targetPointerPopupTransform;
         GameObject targetPointerPopupObject = Managers.Resource.Instantiate("UI/@TargetPointer");
         if (targetPointerPopupObject != null)
@@ -35,6 +39,9 @@ public class TargetPointerPopup : MonoBehaviour
     }
     public void Setup(Transform targetTransform)
     {
+        if (targetTransform == null)
+            return;
+
         _targetTransform = targetTransform;
 
         _sortingOrder++;
@@ -48,6 +55,9 @@ public class TargetPointerPopup : MonoBehaviour
 
     private void LateUpdate()
     {
+        if (_targetTransform == null)
+            return;
+
         transform.position = _targetTransform.position + Vector3.up * (_targetTransform.GetComponent<Collider>().bounds.size.y);
         transform.rotation = Managers.Camera.Main.transform.rotation;
     }
